@@ -1,0 +1,72 @@
+{
+  "users_simulated": 20000,
+  "funnel": [
+    {
+      "stage": "signed_up",
+      "users": 20000,
+      "pct_of_signups": 1.0,
+      "step_conversion": 1.0
+    },
+    {
+      "stage": "connected_erp",
+      "users": 9385,
+      "pct_of_signups": 0.4693,
+      "step_conversion": 0.4693
+    },
+    {
+      "stage": "first_invoice",
+      "users": 7388,
+      "pct_of_signups": 0.3694,
+      "step_conversion": 0.7872
+    },
+    {
+      "stage": "activated",
+      "users": 4368,
+      "pct_of_signups": 0.2184,
+      "step_conversion": 0.5912
+    },
+    {
+      "stage": "active_week4",
+      "users": 3118,
+      "pct_of_signups": 0.1559,
+      "step_conversion": 0.7138
+    }
+  ],
+  "biggest_drop_stage": "connected_erp",
+  "erp_connect_rate_by_company_size": {
+    "Enterprise": 0.312,
+    "Mid-market": 0.446,
+    "SMB": 0.517
+  },
+  "erp_connect_rate_by_channel": {
+    "Organic": 0.471,
+    "Paid": 0.429,
+    "Partner": 0.534
+  },
+  "baseline_connect_rate": 0.4693,
+  "design": {
+    "mde_abs": 0.02,
+    "alpha": 0.05,
+    "power": 0.8,
+    "n_per_arm": 9794
+  },
+  "experiment": {
+    "n_control": 9794,
+    "n_variant": 9794,
+    "srm_p": 1.0,
+    "control_rate": 0.4586481519297529,
+    "variant_rate": 0.49846845007147234,
+    "abs_lift": 0.039820298141719446,
+    "rel_lift": 0.0868210151380232,
+    "ci95_abs": [
+      0.02584001085998347,
+      0.05380058542345542
+    ],
+    "z": 5.578266431078656,
+    "p_value": 2.4292738043385498e-08,
+    "tickets_control": 0.3042679191341638,
+    "tickets_variant": 0.33040637124770267,
+    "tickets_p_value": 0.0012123576433074258
+  },
+  "decision": "DO NOT SHIP YET: see results."
+}

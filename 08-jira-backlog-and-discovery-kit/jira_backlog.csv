@@ -1,0 +1,56 @@
+Issue Type,Summary,Description,Priority,Epic Name,Epic Link,Labels,Story Points
+Epic,Agent Quality Scorecard,"Show finance teams how accurate and safe the AI agent is and gate go-live on objective checks (projects 02, 05).",High,Agent Quality Scorecard,,,
+Epic,Exception Inbox,"One queue for everything automation could not finish, with a reason and a one-click fix (projects 01, 06).",High,Exception Inbox,,,
+Epic,ERP Sync Reliability,"Invoices post to the customer's ERP exactly once, with visible status and clear failures (project 07).",High,ERP Sync Reliability,,,
+Story,Weekly quality score for the collections agent,"As a finance manager I want a weekly quality score so that I can decide whether to expand the agent.
+
+Acceptance criteria:
+Given 50+ messages were sent, when I open the scorecard, then I see pass rate, critical-defect count and a sample of failed messages.",High,,Agent Quality Scorecard,scorecard;analytics,5
+Story,Defect breakdown with 'needs judge' flag,"As a quality reviewer I want defects split by type and whether rules can catch them so that I focus on tone and offers.
+
+Acceptance criteria:
+Given a week of messages, when I view defects, then each type shows count, rule-catch rate and a 'needs judge' marker.",High,,Agent Quality Scorecard,scorecard,3
+Story,Automation vs risk setting,"As a finance manager I want to choose conservative, balanced or aggressive automation so that I control the risk.
+
+Acceptance criteria:
+Given I choose a level, when invoices are processed, then STP rate and false-approve rate for that level are displayed with an explanation.",High,,Agent Quality Scorecard,scorecard;controls,5
+Story,Go-live gate,"As an implementation lead I want calling locked until quality thresholds are met so that unsafe agents never contact customers.
+
+Acceptance criteria:
+Given the last 500 messages, when critical factual defects > 0 or judge kappa < 0.7, then 'Enable calling' stays disabled and the reason is shown.",Highest,,Agent Quality Scorecard,scorecard;safety,5
+Story,LLM-judge calibration set,"As a quality reviewer I want to label flagged messages so that the judge is calibrated against humans.
+
+Acceptance criteria:
+Given a flagged message, when I mark it correct or incorrect, then the label is stored and agreement (kappa) is recomputed weekly.",Medium,,Agent Quality Scorecard,llm-eval,8
+Story,Hand-off on dispute,"As a customer who disputes an invoice I want to be handed to a person so that I am not pushed to pay.
+
+Acceptance criteria:
+Given a dispute phrase in the reply, when the agent responds, then it hands off to a human and logs the event.",Highest,,Agent Quality Scorecard,safety,3
+Story,Unified exception queue,"As an AP clerk I want one queue of invoices the system could not finish so that nothing falls through.
+
+Acceptance criteria:
+Given an invoice fails matching or capture, when I open the inbox, then it appears with type, amount, age and reason.",High,,Exception Inbox,exceptions,5
+Story,Suggested fix with one click,"As an AP clerk I want a suggested fix per exception so that I resolve it quickly.
+
+Acceptance criteria:
+Given a price mismatch within policy, when I click 'Accept tolerance', then the invoice moves to approval and the decision is logged.",Medium,,Exception Inbox,exceptions;automation,8
+Story,Resolution feeds quality metrics,"As a product manager I want each resolution stored as a label so that automation improves over time.
+
+Acceptance criteria:
+Given an exception is resolved, when saved, then its type, fix and time-to-resolve are stored for reporting.",Medium,,Exception Inbox,analytics,3
+Story,Validate before posting,"As a finance manager I want invalid invoices stopped with a reason so that bad data never reaches the ERP.
+
+Acceptance criteria:
+Given lines do not add up to the total, when submitted, then it is rejected with a reason and no ERP call is made.",High,,ERP Sync Reliability,erp;validation,3
+Story,Idempotent posting,"As a finance manager I want retries never to create duplicates so that the books stay correct.
+
+Acceptance criteria:
+Given the same invoice is submitted twice, when posted, then exactly one ERP document exists.",Highest,,ERP Sync Reliability,erp,5
+Story,Retry with backoff and alerting,"As an integration owner I want transient errors retried and failures alerted so that I can act early.
+
+Acceptance criteria:
+Given a timeout, when posting, then retry up to 4 times with backoff; if the failure rate exceeds 2% in an hour, an alert is sent.",High,,ERP Sync Reliability,erp;reliability,5
+Story,Sync status page,"As an AP clerk I want to see each invoice's sync status so that I know whether it reached the ERP.
+
+Acceptance criteria:
+Given any invoice, when opened, then status, ERP document id and number of attempts are shown.",Medium,,ERP Sync Reliability,erp;ux,3

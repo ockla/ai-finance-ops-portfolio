@@ -1,0 +1,63 @@
+{
+  "n_messages": 800,
+  "pass_rate_true": 0.74375,
+  "pass_rate_if_trusting_checker": 0.77375,
+  "critical_defect_messages_true": 184,
+  "critical_defects_missed_by_checker": 24,
+  "defects": {
+    "wrong_amount": {
+      "true_count": 58,
+      "checker_precision": 1.0,
+      "checker_recall": 1.0,
+      "recall_95ci": [
+        1.0,
+        1.0
+      ]
+    },
+    "wrong_date": {
+      "true_count": 38,
+      "checker_precision": 1.0,
+      "checker_recall": 1.0,
+      "recall_95ci": [
+        1.0,
+        1.0
+      ]
+    },
+    "missing_link": {
+      "true_count": 32,
+      "checker_precision": 1.0,
+      "checker_recall": 1.0,
+      "recall_95ci": [
+        1.0,
+        1.0
+      ]
+    },
+    "threat_tone": {
+      "true_count": 51,
+      "checker_precision": 1.0,
+      "checker_recall": 0.608,
+      "recall_95ci": [
+        0.49,
+        0.745
+      ]
+    },
+    "hallucinated_offer": {
+      "true_count": 32,
+      "checker_precision": 1.0,
+      "checker_recall": 0.625,
+      "recall_95ci": [
+        0.469,
+        0.781
+      ]
+    },
+    "missed_handoff": {
+      "true_count": 29,
+      "checker_precision": 1.0,
+      "checker_recall": 1.0,
+      "recall_95ci": [
+        1.0,
+        1.0
+      ]
+    }
+  }
+}

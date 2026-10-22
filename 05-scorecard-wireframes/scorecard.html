@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Agent Quality Scorecard - wireframe</title>
+<style>
+  :root{--ink:#14213d;--teal:#0e9f8e;--amber:#f4a261;--red:#d64545;--bg:#f5f7fa;--card:#fff;--line:#dfe5ec;--muted:#5b6475}
+  *{box-sizing:border-box} body{margin:0;font-family:"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);width:1280px}
+  header{background:var(--ink);color:#fff;padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+  header b{font-size:18px} .tag{background:#1e3a5f;border-radius:12px;padding:3px 10px;font-size:12px;color:#bfeee8}
+  .wrap{padding:22px 28px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .card h3{margin:0 0 8px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+  .big{font-size:34px;font-weight:700} .sub{font-size:12px;color:var(--muted)}
+  .good{color:var(--teal)} .warn{color:var(--amber)} .bad{color:var(--red)}
+  .span2{grid-column:span 2} .span3{grid-column:span 3}
+  table{width:100%;border-collapse:collapse;font-size:13px} th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left} th{color:var(--muted);font-weight:600;font-size:12px}
+  .pill{display:inline-block;padding:1px 9px;border-radius:10px;font-size:11px;font-weight:700}
+  .p-red{background:#fde8e8;color:var(--red)} .p-amb{background:#fff1e0;color:#b9651a} .p-grn{background:#e0f5f1;color:#087566}
+  .dial{display:flex;gap:8px;margin-top:6px} .opt{flex:1;border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px;text-align:center}
+  .opt.sel{border-color:var(--teal);background:#e6f6f3;font-weight:700}
+  .gate{border:2px dashed var(--amber);background:#fffaf2} .btn{display:inline-block;background:var(--teal);color:#fff;padding:7px 14px;border-radius:7px;font-size:12px;font-weight:700}
+  .btn.off{background:#c8cfd8} .bar{height:10px;border-radius:6px;background:#e8edf2;overflow:hidden;margin-top:6px} .bar i{display:block;height:100%;background:var(--teal)}
+  .note{font-size:11px;color:var(--muted);padding:0 28px 18px}
+</style></head><body>
+<header><div><b>Agent Quality Scorecard</b> &nbsp; <span class="tag">Collections agent &middot; last 7 days</span></div><div class="tag">WIREFRAME &middot; illustrative synthetic numbers</div></header>
+<div class="wrap">
+  <div class="card"><h3>Message pass rate</h3><div class="big warn">74%</div><div class="sub">800 messages reviewed &middot; target &ge; 95%</div><div class="bar"><i style="width:74%;background:var(--amber)"></i></div></div>
+  <div class="card"><h3>Critical defects</h3><div class="big bad">184</div><div class="sub">24 missed by rule checks, found by judge + human audit</div></div>
+  <div class="card"><h3>Judge vs human agreement (&kappa;)</h3><div class="big" style="font-size:24px;color:var(--muted);padding:8px 0">Not yet measured</div><div class="sub">target &ge; 0.70 &middot; needs 100+ human labels &middot; weekly 50-message audit</div></div>
+
+  <div class="card span2"><h3>Defects by type</h3>
+    <table><tr><th>Defect</th><th>Count</th><th>Caught by rules</th><th>Needs judge</th><th>Severity</th></tr>
+    <tr><td>Wrong amount</td><td>58</td><td>100%</td><td>No</td><td><span class="pill p-red">Critical</span></td></tr>
+    <tr><td>Wrong due date</td><td>38</td><td>100%</td><td>No</td><td><span class="pill p-red">Critical</span></td></tr>
+    <tr><td>Threatening tone</td><td>51</td><td>61%</td><td>Yes</td><td><span class="pill p-red">Critical</span></td></tr>
+    <tr><td>Invented offer</td><td>32</td><td>63%</td><td>Yes</td><td><span class="pill p-red">Critical</span></td></tr>
+    <tr><td>Missed hand-off</td><td>29</td><td>100%</td><td>No</td><td><span class="pill p-red">Critical</span></td></tr>
+    <tr><td>Missing payment link</td><td>32</td><td>100%</td><td>No</td><td><span class="pill p-amb">Medium</span></td></tr></table></div>
+
+  <div class="card"><h3>Automation vs risk</h3><div class="sub">Choose how much the agent may do on its own</div>
+    <div class="dial"><div class="opt">Conservative<br><span class="sub">STP 59%<br>risk 0%</span></div><div class="opt sel">Balanced<br><span class="sub">STP 75%<br>risk 1.3%</span></div><div class="opt">Aggressive<br><span class="sub">more STP<br>more risk (not measured)</span></div></div>
+    <div class="sub" style="margin-top:8px">STP = invoices handled with no human. Risk = bad invoices wrongly approved.</div></div>
+
+  <div class="card span2"><h3>Review queue (flagged messages)</h3>
+    <table><tr><th>Invoice</th><th>Flag</th><th>Message excerpt</th><th>Action</th></tr>
+    <tr><td>INV-1042</td><td><span class="pill p-red">Tone</span></td><td>"...last warning, pay immediately or we will take legal action."</td><td>Correct / Wrong flag</td></tr>
+    <tr><td>INV-1187</td><td><span class="pill p-red">Offer</span></td><td>"...we can quietly drop the late fee if cleared today."</td><td>Correct / Wrong flag</td></tr>
+    <tr><td>INV-1203</td><td><span class="pill p-amb">Hand-off</span></td><td>"Please pay immediately..." (customer disputed)</td><td>Correct / Wrong flag</td></tr></table>
+    <div class="sub" style="margin-top:6px">Every decision becomes a human label that recalibrates the judge.</div></div>
+
+  <div class="card gate"><h3>Go-live gate</h3>
+    <div style="font-size:13px;line-height:1.7">&#10007; 0 critical factual defects in last 500 messages<br>&#9675; Judge &kappa; &ge; 0.70 (not yet measured)<br>&#9675; Weekly human audit completed</div>
+    <div style="margin-top:10px"><span class="btn off">Enable calling</span> <span class="sub">locked until all checks pass</span></div></div>
+</div>
+<div class="note">Design notes: pass rate, defect counts and the Balanced/Conservative automation figures come from the repo's synthetic experiments (projects 01 and 02); items marked "not yet measured" are placeholders for data a real pilot would supply. Key decisions: show severity and "needs judge" so reviewers focus on what rules cannot catch; make the risk dial explicit; lock go-live behind objective gates.</div>
+</body></html>

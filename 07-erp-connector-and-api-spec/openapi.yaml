@@ -1,0 +1,70 @@
+openapi: 3.0.3
+info:
+  title: Invoice Sync API (illustrative)
+  version: 0.1.0
+  description: >
+    Illustrative API contract for pushing validated invoices to a customer's ERP through a connector.
+    Written as a product spec; not a real vendor API.
+paths:
+  /v1/invoices:
+    post:
+      summary: Submit an invoice for posting to the connected ERP
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string }
+          description: Same key + same body must never create a second ERP document.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Invoice' }
+      responses:
+        '201': { description: Posted, content: { application/json: { schema: { $ref: '#/components/schemas/SyncResult' } } } }
+        '200': { description: Duplicate - already posted, returns the original result }
+        '422': { description: Validation failed, content: { application/json: { schema: { $ref: '#/components/schemas/Problem' } } } }
+        '429': { description: Rate limited - retry after the Retry-After header }
+        '502': { description: ERP unavailable - safe to retry with the same Idempotency-Key }
+  /v1/invoices/{id}:
+    get:
+      summary: Get sync status of an invoice
+      parameters:
+        - { in: path, name: id, required: true, schema: { type: string } }
+      responses:
+        '200': { description: Status, content: { application/json: { schema: { $ref: '#/components/schemas/SyncResult' } } } }
+        '404': { description: Unknown id }
+components:
+  schemas:
+    Invoice:
+      type: object
+      required: [invoice_no, vendor, invoice_date, currency, lines, total]
+      properties:
+        invoice_no: { type: string }
+        vendor: { type: string }
+        invoice_date: { type: string, format: date }
+        currency: { type: string, enum: [INR, USD, SGD, IDR, EUR] }
+        po_ref: { type: string, nullable: true }
+        total: { type: number, description: Must equal the sum of line amounts within 0.01 }
+        lines:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [description, quantity, unit_price]
+            properties:
+              description: { type: string }
+              quantity: { type: number, exclusiveMinimum: 0 }
+              unit_price: { type: number, minimum: 0 }
+    SyncResult:
+      type: object
+      properties:
+        status: { type: string, enum: [posted, duplicate_skipped, rejected, failed] }
+        erp_document_id: { type: string }
+        attempts: { type: integer }
+        detail: { type: string }
+    Problem:
+      type: object
+      properties:
+        title: { type: string }
+        errors: { type: array, items: { type: string } }
